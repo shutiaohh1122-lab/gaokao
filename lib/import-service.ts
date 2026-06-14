@@ -1,4 +1,3 @@
-import { prisma } from "@/lib/prisma";
 import type { ImportApiResponse } from "@/lib/api-types";
 import { buildLookupTables, resolveSuggestedIdByName } from "@/lib/import-match";
 
@@ -62,11 +61,17 @@ type AdmissionSeed = {
   dataSource?: string;
 };
 
+async function getPrismaClient() {
+  const { prisma } = await import("@/lib/prisma");
+  return prisma;
+}
+
 export async function importCatalogPayload(payload: {
   provinces?: ProvinceSeed[];
   universities?: UniversitySeed[];
   majors?: MajorSeed[];
 }): Promise<ImportApiResponse> {
+  const prisma = await getPrismaClient();
   const provinces = payload.provinces || [];
   const universities = payload.universities || [];
   const majors = payload.majors || [];
@@ -173,6 +178,7 @@ export async function importCatalogPayload(payload: {
 }
 
 export async function importAdmissionsPayload(payload: { admissions?: AdmissionSeed[] }): Promise<ImportApiResponse> {
+  const prisma = await getPrismaClient();
   const admissions = payload.admissions || [];
   const lookups = await buildLookupTables();
   const normalizedAdmissions = admissions.map((row) => {

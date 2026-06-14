@@ -1,5 +1,3 @@
-import { prisma } from "@/lib/prisma";
-
 type LookupTables = {
   provinceIdSet: Set<string>;
   universityIdSet: Set<string>;
@@ -13,7 +11,13 @@ function normalizeText(value: unknown) {
   return String(value || "").trim().replace(/\s+/g, "");
 }
 
+async function getPrismaClient() {
+  const { prisma } = await import("@/lib/prisma");
+  return prisma;
+}
+
 export async function buildLookupTables(): Promise<LookupTables> {
+  const prisma = await getPrismaClient();
   const [provinceRows, universityRows, majorRows] = await Promise.all([
     prisma.province.findMany({ select: { id: true, name: true } }),
     prisma.university.findMany({ select: { id: true, name: true } }),
