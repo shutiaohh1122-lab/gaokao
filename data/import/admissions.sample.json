@@ -1,0 +1,21 @@
+[
+  {
+    "id": "guangdong-2025-sysu-computer-science",
+    "provinceId": "guangdong",
+    "year": 2025,
+    "subjectType": "物理",
+    "universityId": "sysu",
+    "majorId": "computer-science",
+    "batch": "本科批",
+    "planCount": 12,
+    "admittedCount": 12,
+    "minScore": 634,
+    "avgScore": 639,
+    "maxScore": 648,
+    "minRank": 8123,
+    "avgRank": 7560,
+    "provinceControlLine": 540,
+    "scoreGap": 94,
+    "dataSource": "imported"
+  }
+]

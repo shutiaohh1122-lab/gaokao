@@ -1,0 +1,14 @@
+[
+  {
+    "id": "guangdong",
+    "name": "广东",
+    "region": "华南",
+    "subjects": ["物理", "历史"]
+  },
+  {
+    "id": "beijing",
+    "name": "北京",
+    "region": "华北",
+    "subjects": ["综合"]
+  }
+]

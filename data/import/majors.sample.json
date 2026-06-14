@@ -1,0 +1,17 @@
+[
+  {
+    "id": "computer-science",
+    "name": "计算机科学与技术",
+    "category": "工学",
+    "degree": "工学学士",
+    "duration": "4年",
+    "tuition": 6850,
+    "subjectRequirements": "首选物理，再选不限",
+    "overview": "示例数据，可替换为教育部本科专业目录。",
+    "careers": ["软件研发", "平台工程", "技术产品"],
+    "courses": ["数据结构", "操作系统", "数据库", "计算机网络"],
+    "heat": 95,
+    "level": "本科",
+    "source": "imported"
+  }
+]

@@ -1,0 +1,18 @@
+[
+  {
+    "id": "sysu",
+    "name": "中山大学",
+    "city": "广州",
+    "province": "广东",
+    "type": "综合",
+    "tierTags": ["985", "211", "双一流"],
+    "slogan": "博学 审问 慎思 明辨 笃行",
+    "description": "示例数据，可替换为全国院校目录。",
+    "foundedYear": 1924,
+    "affiliation": "教育部",
+    "dominantMajors": ["临床医学", "工商管理", "电子信息工程"],
+    "graduateRate": 74,
+    "employmentRate": 94,
+    "source": "imported"
+  }
+]

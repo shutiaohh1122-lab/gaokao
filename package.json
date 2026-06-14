@@ -1,0 +1,40 @@
+{
+  "name": "gaokao-admission-explorer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "High school admission score explorer built with Next.js, TypeScript, Tailwind CSS, and mock data.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "prisma:generate": "prisma generate",
+    "prisma:push": "prisma db push",
+    "import:catalogs": "node --import tsx/esm scripts/import-catalogs.ts",
+    "import:admissions": "node --import tsx/esm scripts/import-admissions.ts"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.469.0",
+    "next": "^14.2.30",
+    "@prisma/client": "^5.22.0",
+    "csv-parse": "^5.6.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "recharts": "^2.15.0",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^14.2.30",
+    "postcss": "^8.4.49",
+    "prisma": "^5.22.0",
+    "tailwindcss": "^3.4.17",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}

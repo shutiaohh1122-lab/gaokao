@@ -1,0 +1,86 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Province {
+  id          String              @id
+  name        String
+  region      String
+  subjectJson String
+  admissions  AdmissionScore[]
+
+  @@map("provinces")
+}
+
+model University {
+  id             String             @id
+  name           String
+  city           String
+  province       String
+  type           String
+  tierTagsJson   String
+  slogan         String?
+  description    String?
+  foundedYear    Int?
+  affiliation    String?
+  dominantMajors String?
+  graduateRate   Float?
+  employmentRate Float?
+  source         String             @default("imported")
+  admissions     AdmissionScore[]
+
+  @@index([name])
+  @@map("universities")
+}
+
+model Major {
+  id                  String             @id
+  name                String
+  category            String
+  degree              String?
+  duration            String?
+  tuition             Int?
+  subjectRequirements String?
+  overview            String?
+  careersJson         String?
+  coursesJson         String?
+  heat                Int?
+  level               String             @default("本科")
+  source              String             @default("imported")
+  admissions          AdmissionScore[]
+
+  @@index([name])
+  @@map("majors")
+}
+
+model AdmissionScore {
+  id                  String     @id
+  provinceId          String
+  year                Int
+  subjectType         String
+  universityId        String
+  majorId             String
+  batch               String?
+  planCount           Int?
+  admittedCount       Int?
+  minScore            Int
+  avgScore            Int?
+  maxScore            Int?
+  minRank             Int
+  avgRank             Int?
+  provinceControlLine Int?
+  scoreGap            Int?
+  dataSource          String     @default("imported")
+  province            Province   @relation(fields: [provinceId], references: [id], onDelete: Cascade)
+  university          University @relation(fields: [universityId], references: [id], onDelete: Cascade)
+  major               Major      @relation(fields: [majorId], references: [id], onDelete: Cascade)
+
+  @@index([provinceId, year, subjectType])
+  @@index([universityId, majorId])
+  @@map("admission_scores")
+}
