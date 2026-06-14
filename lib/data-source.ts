@@ -15,10 +15,14 @@ import {
   searchAdmissions as searchMockAdmissions,
   universities as mockUniversities
 } from "@/lib/mock-data";
-import { prisma } from "@/lib/prisma";
 
 function isDatabaseEnabled() {
   return process.env.DATA_SOURCE === "database";
+}
+
+async function getPrismaClient() {
+  const { prisma } = await import("@/lib/prisma");
+  return prisma;
 }
 
 function parseJsonArray(value?: string | null) {
@@ -144,42 +148,49 @@ function mapDbAdmission(record: {
 
 export async function getProvincesData(): Promise<Province[]> {
   if (!isDatabaseEnabled()) return mockProvinces;
+  const prisma = await getPrismaClient();
   const rows = await prisma.province.findMany({ orderBy: { name: "asc" } });
   return rows.length ? rows.map(mapDbProvince) : mockProvinces;
 }
 
 export async function getUniversitiesData(): Promise<University[]> {
   if (!isDatabaseEnabled()) return mockUniversities;
+  const prisma = await getPrismaClient();
   const rows = await prisma.university.findMany({ orderBy: { name: "asc" } });
   return rows.length ? rows.map(mapDbUniversity) : mockUniversities;
 }
 
 export async function getMajorsData(): Promise<Major[]> {
   if (!isDatabaseEnabled()) return mockMajors;
+  const prisma = await getPrismaClient();
   const rows = await prisma.major.findMany({ orderBy: { name: "asc" } });
   return rows.length ? rows.map(mapDbMajor) : mockMajors;
 }
 
 export async function findUniversityById(universityId: string): Promise<University | undefined> {
   if (!isDatabaseEnabled()) return getMockUniversityById(universityId);
+  const prisma = await getPrismaClient();
   const row = await prisma.university.findUnique({ where: { id: universityId } });
   return row ? mapDbUniversity(row) : getMockUniversityById(universityId);
 }
 
 export async function findMajorById(majorId: string): Promise<Major | undefined> {
   if (!isDatabaseEnabled()) return getMockMajorById(majorId);
+  const prisma = await getPrismaClient();
   const row = await prisma.major.findUnique({ where: { id: majorId } });
   return row ? mapDbMajor(row) : getMockMajorById(majorId);
 }
 
 export async function findProvinceById(provinceId: string): Promise<Province | undefined> {
   if (!isDatabaseEnabled()) return getMockProvinceById(provinceId);
+  const prisma = await getPrismaClient();
   const row = await prisma.province.findUnique({ where: { id: provinceId } });
   return row ? mapDbProvince(row) : getMockProvinceById(provinceId);
 }
 
 export async function queryAdmissions(filters: SearchFilters): Promise<AdmissionScore[]> {
   if (!isDatabaseEnabled()) return searchMockAdmissions(filters);
+  const prisma = await getPrismaClient();
 
   const universityWhere: Record<string, unknown> = {};
   const majorWhere: Record<string, unknown> = {};
@@ -221,6 +232,7 @@ export async function queryAdmissions(filters: SearchFilters): Promise<Admission
 
 export async function getAllAdmissionsData(): Promise<AdmissionScore[]> {
   if (!isDatabaseEnabled()) return mockAdmissionScores;
+  const prisma = await getPrismaClient();
   const rows = await prisma.admissionScore.findMany();
   return rows.length ? rows.map(mapDbAdmission) : mockAdmissionScores;
 }
